@@ -55,7 +55,34 @@ new_transcript = pd.merge(left=transcript,
                           right_on=["person", "offer id", "time_completed", "event"],
                           how="left")
 new_transcript.drop(columns={"time_received", "time_viewed", "time_completed", "duration", "offer_type"}, inplace=True) # remove merge columns
-new_transcript.to_csv("Data/processed/transcript.csv")
+
+# 1.2 FLAG TRANSACTIONS THAT HAPPENED OUTSIDE ACTIVE OFFER WINDOWS
+natural_transaction_status = """
+SELECT
+    t.person,
+    t.time,
+    t.amount,
+    CASE WHEN MAX(s."offer id") IS NULL THEN 1 ELSE 0 END AS is_natural_transaction
+FROM transcript t
+LEFT JOIN offer_status s
+    ON t.person = s.person
+    AND t.time >= s.time_viewed
+    AND t.time <= COALESCE(s.time_completed, s.time_received + (s.duration * 24))
+WHERE t.event = 'transaction'
+GROUP BY t.person, t.time, t.amount
+"""
+
+natural_transaction_status = dd.sql(natural_transaction_status).to_df()
+new_transcript = pd.merge(
+    new_transcript,
+    natural_transaction_status,
+    on=["person", "time", "amount"],
+    how="left",
+)
+new_transcript["is_natural_transaction"] = (
+    new_transcript["is_natural_transaction"].fillna(0).astype(int)
+)
+new_transcript.to_csv("Data/processed/transcript.csv", index=False)
 
 
 # 2. CALCULATE CUSTOMER AVERAGE NATURAL SPENDING AND RESPOSIVENESS TO OFFERS 
@@ -88,7 +115,7 @@ natural_transactions AS (
 ),
 
 user_spending AS (
-    -- 5. COMPUTE HOW MUCH EACH USER SPEND WHEN THERE ARE NO ACTIVE OFFERS
+    -- 5. COMPUTE HOW ON AVERAGE EACH USER SPEND WHEN THERE ARE NO ACTIVE OFFERS
     SELECT 
         person,
         AVG(amount) AS avg_natural_spending
@@ -112,4 +139,4 @@ WHERE p.age != 118
 
 new_features = dd.sql(customers).to_df()
 new_profile = pd.merge(left=profile, right=new_features, left_on='id', right_on='person', how='left')
-new_profile.drop(["person"], axis=1).to_csv("Data/processed/profile.csv")
+new_profile.drop(["person"], axis=1).to_csv("Data/processed/profile.csv", index=False)
