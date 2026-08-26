@@ -9,8 +9,3 @@ wheels/
 # Virtual environments
 .venv
 
-# Files to temporarly hide
-Documentation
-Models_and_Dashboards
-Assets
-Prove Codice

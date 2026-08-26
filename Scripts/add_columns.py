@@ -1,5 +1,5 @@
-import duckdb as dd
 import pandas as pd
+import duckdb as dd
 
 
 transcript = pd.read_csv("Data/raw_csv/transcript.csv")
@@ -92,7 +92,7 @@ WITH user_sensibility AS (
     -- 3. DEFINE OFFER SENSIBILITY AS # INTENTIONALLY COMPLETED OFFERS / # RECEIVED OFFERS
     SELECT 
         person,
-        SUM(is_success) / CAST(COUNT(time_received) AS FLOAT) AS offer_sensibility
+        SUM(is_success) / CAST(COUNT(time_received) AS FLOAT) AS offer_sensitivity
     FROM offer_status
     WHERE offer_type != 'informational'
     GROUP BY person 
