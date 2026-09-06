@@ -31,7 +31,7 @@ SELECT
     p.offer_type,
     MAX(CASE WHEN c.event = 'offer received' THEN c.time END) AS time_received,
     MAX(CASE WHEN c.event = 'offer viewed' THEN c.time END) AS time_viewed,
-    MAX(CASE WHEN c.event = 'offer completed' THEN c.time END) AS time_completed, -- this put the timeline on the same row for each offer
+    MAX(CASE WHEN c.event = 'offer completed' THEN c.time END) AS time_completed, -- this puts the timeline on the same row for each offer
     
     CASE
         WHEN time_viewed >= time_received
@@ -135,7 +135,7 @@ WHERE p.age != 118
   AND p.gender != 'O';
 """
 
-# 2.1 CREATE A NEW PROFILE WITH THESE TWO ADDITIONAL INFORMATIONS FOR EACH USER
+# 2.1 CREATE A NEW PROFILE WITH THESE TWO ADDITIONAL INFORMATION FOR EACH USER
 
 new_features = dd.sql(customers).to_df()
 new_profile = pd.merge(left=profile, right=new_features, left_on='id', right_on='person', how='left')

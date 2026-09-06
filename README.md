@@ -6,9 +6,7 @@
 
 In retail, high sales numbers during a promotion can be misleading. Sending discounts to every customer often hurts profitability simply because many people would have bought their coffee anyway at full price.
 
-Using the Starbucks Rewards dataset, this project builds a decision model to see if a promotion generates real extra revenue or just gives away margin. By separating natural customer spending from promo-driven spending, the tool identifies which campaigns truly drive profit and which ones just waste marketing budget.
-
-
+Using the [Starbucks Rewards](https://www.kaggle.com/datasets/blacktile/starbucks-app-customer-reward-program-data) dataset, this project builds a decision model to verify if a promotion generates real extra revenue. By separating natural customer spending from promo-driven spending, the tool helps to identify which campaigns truly drive profit and which ones just waste marketing budget. 
 
 
 ---
@@ -17,7 +15,7 @@ Using the Starbucks Rewards dataset, this project builds a decision model to see
 
 ```text
 ├── Images/            # Visual assets in this documentation
-├── Excel/             # The final Simulation Engine and Executive Dashboard
+├── Workbook/            # The final Simulation Engine and Executive Dashboard
 ├── Data/              # Core datasets powering the analysis
 │   ├── raw_json/      # Original, unprocessed nested system logs
 │   ├── raw_csv/       # Flattened files (includes portfolio.csv)
