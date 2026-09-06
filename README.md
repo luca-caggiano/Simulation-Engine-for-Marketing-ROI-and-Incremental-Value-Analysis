@@ -2,7 +2,7 @@
 
 # Strategic Campaign ROI & Incremental Value Simulator
 ![alt text](Images/dashboard.gif)
-## Executive Summary
+## Summary
 
 In retail, high sales numbers during a promotion can be misleading. Sending discounts to every customer often hurts profitability simply because many people would have bought their coffee anyway at full price.
 
