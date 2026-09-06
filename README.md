@@ -2,7 +2,7 @@
 
 # Strategic Campaign ROI & Incremental Value Simulator
 ![alt text](Images/dashboard.gif)
-## Executive Summary
+## Summary
 
 In retail, high sales numbers during a promotion can be misleading. Sending discounts to every customer often hurts profitability simply because many people would have bought their coffee anyway at full price.
 
@@ -14,14 +14,14 @@ Using the [Starbucks Rewards](https://www.kaggle.com/datasets/blacktile/starbuck
 ## 📁 Repository Structure
 
 ```text
-├── Images/            # Visual assets in this documentation
-├── Workbook/            # The final Simulation Engine and Executive Dashboard
 ├── Data/              # Core datasets powering the analysis
 │   ├── raw_json/      # Original, unprocessed nested system logs
-│   ├── raw_csv/       # Flattened files (includes portfolio.csv)
+│   ├── raw_csv/       # Flattened files
 │   └── processed/     # Engineered files (includes enriched transcript.csv & profile.csv)
-└── Scripts/           # Python pipelines for ETL and feature engineering
-    ├── json_to_csv.py # Flattens nested arrays/dictionaries into relational schemas
+├── Images/            # Visual assets in this documentation
+├── Workbook/          # The final Simulation Engine and Executive Dashboard
+└── Scripts/           # Python and SQL code to prerare file for analysis
+    ├── json_to_csv.py # Flattens nested arrays/dictionaries
     └── add_columns.py # DuckDB SQL script for causal tracking and counterfactual metrics
 
 ```
